@@ -21,13 +21,14 @@
   <script>
     let lastBeatTimestamp = Date.now();
     let rhythm = [];
+
+    // Any key can be used
     document.addEventListener('keydown', (e) => {
       let currentBeatTimestamp = Date.now();
       rhythm.push(currentBeatTimestamp - lastBeatTimestamp);
       lastBeatTimestamp = currentBeatTimestamp;
 
       if (rhythm.length >= 2) {
-        // drawTargetRhythm(targetRhythm);
         drawBeats(rhythm);
       }
 
@@ -36,19 +37,13 @@
     const canvas = document.getElementById("metronome");
     const ctx = canvas.getContext("2d");
 
-    // const targetRhythm = [250, 250];
-    // function drawTargetRhythm(targetRhythm) {
-    //   ctx.fillStyle = 'black';
-    //   ctx.globalAlpha = 1;
-    //   drawBeat(targetRhythm[0], targetRhythm[1]);
-    // }
-
     function drawBeats(rhythm) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       rhythm.slice(0, rhythm.length-1).forEach((interval, i) => {
 
-        // ctx.fillStyle = `rgba(255, 255, 255, 1)`;
         ctx.fillStyle = 'green';
+
+        // Controls the fading of dots over time
         ctx.globalAlpha = Math.pow((i / rhythm.length), 2);
 
         drawBeat(rhythm[i], rhythm[i+1]);
@@ -57,10 +52,7 @@
 
     function drawBeat(x, y) {
       ctx.beginPath();
-      // ctx.arc(50,50,5,0,Math.PI*2,true); // Outer circle
-      ctx.arc(x,y,10,0,Math.PI*2); // Outer circle
-      // alpha = 1 - (i / rhythm.length);
-      ctx.fill();
+      ctx.arc(x,y,10,0,Math.PI*2); 
     }
 
   </script>
